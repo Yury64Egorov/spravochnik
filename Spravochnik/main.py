@@ -4,11 +4,11 @@ class Phonebook:
 
     def add_contact(self, last_name, first_name, phone_number, city, middle_name=None):
         contact = {
-            'Фамилия': last_name,
-            'Имя': first_name,
-            'Отчество': middle_name,
-            'Номер телефона': phone_number,
-            'Город': city
+            'last_name': last_name,
+            'first_name': first_name,
+            'middle_name': middle_name,
+            'phone_number': phone_number,
+            'city': city
         }
         self.contacts.append(contact)
         print("Контакт успешно добавлен.")
@@ -45,6 +45,11 @@ class Phonebook:
                 file.write('\n')
         print("Контакты успешно сохранены в файле.")
 
+    def edit_and_save_contact(self, index, field, new_value, filename):
+        self.edit_contact(index, field, new_value)
+        self.save_to_file(filename)
+        print("Контакт успешно изменен и сохранен в файле.")
+
 def main():
     phonebook = Phonebook()
 
@@ -55,7 +60,8 @@ def main():
         print("3. Просмотреть контакты")
         print("4. Удалить контакт")
         print("5. Сохранить контакты в файл")
-        print("6. Выйти")
+        print("6. Изменить контакт и сохранить в файл")
+        print("7. Выйти")
 
         choice = input("Введите номер действия: ")
 
@@ -85,6 +91,13 @@ def main():
             phonebook.save_to_file(filename)
 
         elif choice == '6':
+            index = int(input("Введите индекс контакта для изменения: "))
+            field = input("Введите поле для изменения: ")
+            new_value = input("Введите новое значение: ")
+            filename = input("Введите название файла для сохранения (с расширением .txt): ")
+            phonebook.edit_and_save_contact(index - 1, field, new_value, filename)
+
+        elif choice == '7':
             break
 
         else:
